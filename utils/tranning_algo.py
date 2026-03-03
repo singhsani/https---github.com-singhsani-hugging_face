@@ -5,8 +5,13 @@ import torch.optim as optim
 from utils.data_generate import getData
 
 def learningData():
-    x_train, y_train = getData()
-    model = nn.Linear(4,1)
+
+    # input features and data Sample
+    n_feature= int(input("Enter features : "))
+    n_sample= int(input ("Enter sample data : "))
+    bais= float(input("Enter Bais: "))
+    x_train, y_train = getData(n_feature,n_sample,bais)
+    model = nn.Linear(n_feature,1)
     #print(x_train)
     criterion = nn.MSELoss()
     optimizer = optim.SGD(model.parameters(), lr=0.0001)
@@ -14,7 +19,7 @@ def learningData():
     loss = criterion(prediction, y_train)
    # print(prediction,loss)
 
-    for epoch in range(5000):
+    for epoch in range(n_sample):
         prediction = model(x_train)
         loss = criterion(prediction, y_train)
 
@@ -31,4 +36,3 @@ def learningData():
     print(model.bias.data)
     
     return model
-
